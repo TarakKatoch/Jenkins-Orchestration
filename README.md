@@ -48,95 +48,126 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
 
 ## 4. Steps to Perform This Project
 
-### Step 1: Clone the Repository
-```bash
-# Clone the repository
-git clone https://github.com/TarakKatoch/Jenkins-Orchestration.git
+### Step 1: Setup Jenkins
+1. Pull Jenkins image and start containers:
+   ```bash
+   docker-compose up -d
+   ```
 
-# Navigate to project directory
-cd Jenkins-Orchestration
-
-# Verify repository contents
-ls -la
-```
-
-### Step 2: Start Jenkins
-```bash
-# Start Jenkins and required containers
-docker-compose up -d
-
-# Verify containers are running
-docker ps
-
-# Check container logs
-docker-compose logs -f
-```
-
-### Step 3: Access Jenkins
-1. Open your browser and navigate to `http://localhost:8080`
-2. Get the initial admin password:
+2. Get initial admin password:
    ```bash
    docker-compose exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
    ```
-3. Log in with:
-   - Username: `admin`
-   - Password: (from step 2)
 
-### Step 4: Configure Jenkins
+3. Access Jenkins:
+   - Open browser and go to `http://localhost:8080`
+   - Enter the initial admin password from step 2
 
-#### Initial Setup
-1. Choose "Install suggested plugins"
-2. Wait for installation to complete
-3. Create admin user with secure password
+4. Install plugins:
+   - Click "Install suggested plugins"
+   - Wait for installation to complete
 
-#### Install Docker Plugins
-1. Go to "Manage Jenkins" > "Manage Plugins"
-2. Click on "Available" tab
-3. Search for and install the following Docker plugins:
-   - Docker Pipeline
-   - Docker plugin
-   - docker-build-step
-4. Restart Jenkins after installation:
-   ```bash
-   # Restart Jenkins container
-   docker-compose restart jenkins
-   
-   # Wait for Jenkins to start (about 30 seconds)
-   # Then verify Jenkins is running
-   docker-compose ps
-   ```
+5. Create first admin user:
+   - Enter your desired username
+   - Enter your password
+   - Enter your email
+   - Click "Save and Continue"
 
-#### Create Pipeline Project
-1. On the Jenkins dashboard:
-   - Click "New Item" (or "Create New Jobs")
+6. Configure Jenkins instance:
+   - Keep the default URL: `http://localhost:8080/`
+   - Click "Save and Finish"
+
+7. Create Pipeline Project:
+   - Click "New Item"
    - Enter project name: `simple-python-pyinstaller-app`
    - Select "Pipeline"
    - Click "OK"
+   - In pipeline configuration:
+     - Scroll to "Pipeline" section
+     - Select "Pipeline script from SCM"
+     - Select "Git" as SCM
+     - Enter repository URL: `https://github.com/TarakKatoch/Jenkins-Orchestration.git`
+     - Enter branch specifier: `*/master`
+     - Click "Save"
 
-2. In the pipeline configuration:
-   - Scroll down to "Pipeline" section
-   - In "Definition" dropdown, select "Pipeline script from SCM"
-   - In "SCM" dropdown, select "Git"
-   - For "Repository URL", enter: `https://github.com/TarakKatoch/Jenkins-Orchestration.git`
-   - For "Branch Specifier", enter: `*/master`
-   - Click "Save"
+8. Install and Configure Docker in Jenkins Container:
+   ```bash
+   # Install Docker
+   docker-compose exec jenkins bash -c "apt-get update && apt-get install -y docker.io"
+   
+   # Start Docker service
+   docker-compose exec jenkins bash -c "service docker start"
+   
+   # Verify Docker installation
+   docker-compose exec jenkins docker --version
+   ```
 
-3. After saving, Jenkins will:
-   - Clone your repository
-   - Look for the Jenkinsfile
-   - Start the pipeline
+9. Install Docker Plugins:
+    - Go to "Manage Jenkins" > "Manage Plugins"
+    - Click "Available" tab
+    - Search for and install:
+      - Docker Pipeline
+      - Docker plugin
+      - docker-build-step
+    - Restart Jenkins after installation:
+      ```bash
+      # Restart Jenkins container
+      docker-compose restart jenkins
+      
+      # Wait for Jenkins to start (about 30 seconds)
+      # Then verify Jenkins is running
+      docker-compose ps
+      ```
 
-### Step 5: Install Docker in Jenkins Container
-```bash
-# Install Docker in Jenkins container
-docker-compose exec jenkins bash -c "apt-get update && apt-get install -y docker.io"
+10. Sign in to Jenkins:
+    - Use the credentials you created in step 5
 
-# Start Docker service
-docker-compose exec jenkins bash -c "service docker start"
+11. Run the Pipeline:
+    - Go to your pipeline project
+    - Click "Build Now"
 
-# Verify Docker installation
-docker-compose exec jenkins docker --version
-```
+### Step 2: Testing the Executable
+
+1. Download the executable from Jenkins:
+   - Go to Jenkins dashboard
+   - Click on `simple-python-pyinstaller-app`
+   - Click on the latest build number
+   - Look for "Build Artifacts" section
+   - Click on `add2vals` to download it to your local machine
+
+   Note: The executable downloaded from Jenkins will be a Linux version since Jenkins runs in a Linux container. 
+
+2. To run the Linux executable on Windows using WSL:
+   ```bash
+   # Check if WSL is installed
+   wsl --version
+   
+   # If WSL is not installed, you'll get an error
+   # In that case, install WSL:
+   wsl --install
+   
+   # After installation, restart your computer
+   # Then open PowerShell and verify WSL is installed:
+   wsl --version
+
+   # To open WSL terminal, you have three options:
+   # Option 1: Open PowerShell and type:
+   wsl
+   
+   # Option 2: Press Windows + R, type 'wsl' and press Enter
+   
+   # Option 3: Click Start menu, type 'wsl' and click on 'Windows Subsystem for Linux'
+   
+   # Navigate to your project directory in WSL
+   # Note: In WSL, Windows paths are accessed through /mnt/
+   cd /mnt/c/Users/asus/OneDrive/Desktop/Jenkins/dist
+   
+   # Make the file executable
+   chmod +x add2vals
+   
+   # Run the executable
+   ./add2vals 5 3
+   ```
 
 ## 5. Pipeline Stages
 
@@ -283,39 +314,7 @@ The build pipeline is triggered automatically when changes are pushed to the Git
    - Click "Artifacts"
    - Download required files
 
-## 7. How to Test After Build
-
- 1. Download the executable from Jenkins:
-   - Go to Jenkins dashboard
-   - Click on `simple-python-pyinstaller-app`
-   - Click on the latest build number
-   - Look for "Build Artifacts" section
-   - Click on `add2vals` to download it to your local machine
-
-2. Set up for local testing:
-   - Create a `dist` folder in your local project directory (if it doesn't exist)
-   - Place the downloaded `add2vals` executable in the `dist` folder
-
-3. Test the executable:
-   ```bash
-   # Navigate to dist directory
-   cd dist
-
-   # Test with integer inputs
-   ./add2vals 5 3  # Should output: 8.0
-
-   # Test with decimal inputs
-   ./add2vals 10.5 7.3  # Should output: 17.8
-
-   # Test with negative numbers
-   ./add2vals -5 3  # Should output: -2.0
-   ```
-
-Note: The executable name and extension will depend on your operating system:
-- Windows: `add2vals.exe`
-- Linux/macOS: `add2vals`
-
-## 8. How It Works
+## 7. How It Works
 
 1. **Source Code Management**
    - Code is stored in GitHub repository
@@ -338,7 +337,7 @@ Note: The executable name and extension will depend on your operating system:
    - Archives build artifacts
    - Makes executable available for download
 
-## 9. What Does PyInstaller Do?
+## 8. What Does PyInstaller Do?
 
 PyInstaller is used to create a standalone executable from the Python application. Here's how it works:
 
@@ -373,3 +372,29 @@ PyInstaller is used to create a standalone executable from the Python applicatio
    - Creates platform-specific executables
    - Works on Windows, Linux, and macOS
    - Native performance
+
+## 9. Conclusion
+
+This project demonstrates a complete CI/CD pipeline setup using Jenkins, Docker, and Python. By following these steps, you have:
+
+1. Set up a Jenkins server with Docker support
+2. Created a pipeline that automatically:
+   - Builds your Python application
+   - Runs tests
+   - Creates a standalone executable
+3. Generated a distributable application that can run on any system
+ 
+### Thank You
+Thank you for following this tutorial! We hope it has helped you understand:
+- How to set up a CI/CD pipeline with Jenkins
+- How to create standalone executables with PyInstaller
+- How to use Docker for containerization
+- How to automate Python application builds and tests
+
+Feel free to:
+- Star this repository if you found it helpful
+- Share it with others who might benefit
+- Contribute improvements or suggestions
+- Report any issues you encounter
+
+Happy coding! 🚀

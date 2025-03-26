@@ -12,6 +12,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - JENKINS_JAVA_OPTS=-Xmx1g
+      - JENKINS_UPDATE_CENTER=https://updates.jenkins.io/update-center.json
     command: --httpPort=8080
     tty: true
     stdin_open: true

@@ -14,6 +14,7 @@ pipeline {
         stage('Setup') {
             steps {
                 sh '''
+                    apt-get update && apt-get install -y binutils
                     python -m pip install --upgrade pip
                     pip install -r requirements.txt
                 '''
@@ -23,18 +24,14 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'python -m py_compile sources/add2vals.py sources/calc.py'
-                stash(name: 'compiled-results', includes: 'sources/*.py*')
+                stash name: 'sources', includes: 'sources/**'
             }
         }
         
         stage('Test') {
             steps {
                 sh 'py.test --junit-xml test-reports/results.xml sources/test_calc.py'
-            }
-            post {
-                always {
-                    junit 'test-reports/results.xml'
-                }
+                junit 'test-reports/results.xml'
             }
         }
         

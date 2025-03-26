@@ -95,7 +95,6 @@ docker-compose logs -f
 3. Search for and install the following Docker plugins:
    - Docker Pipeline
    - Docker plugin
-   - Docker API Plugin
    - docker-build-step
 4. Restart Jenkins after installation:
    ```bash
@@ -108,13 +107,24 @@ docker-compose logs -f
    ```
 
 #### Create Pipeline Project
-1. Click "New Item"
-2. Enter project name: `simple-python-pyinstaller-app`
-3. Select "Pipeline"
-4. Configure Git repository:
-   - Repository URL: `https://github.com/TarakKatoch/Jenkins-Orchestration.git`
-   - Branch specifier: `*/master`
-5. Save configuration
+1. On the Jenkins dashboard:
+   - Click "New Item" (or "Create New Jobs")
+   - Enter project name: `simple-python-pyinstaller-app`
+   - Select "Pipeline"
+   - Click "OK"
+
+2. In the pipeline configuration:
+   - Scroll down to "Pipeline" section
+   - In "Definition" dropdown, select "Pipeline script from SCM"
+   - In "SCM" dropdown, select "Git"
+   - For "Repository URL", enter: `https://github.com/TarakKatoch/Jenkins-Orchestration.git`
+   - For "Branch Specifier", enter: `*/master`
+   - Click "Save"
+
+3. After saving, Jenkins will:
+   - Clone your repository
+   - Look for the Jenkinsfile
+   - Start the pipeline
 
 ### Step 5: Install Docker in Jenkins Container
 ```bash
@@ -275,15 +285,18 @@ The build pipeline is triggered automatically when changes are pushed to the Git
 
 ## 7. How to Test After Build
 
-After a successful pipeline run, the executable will be available in the `dist` directory:
-
-1. **Access in Jenkins**
-   - Go to the build page in Jenkins
+ 1. Download the executable from Jenkins:
+   - Go to Jenkins dashboard
+   - Click on `simple-python-pyinstaller-app`
+   - Click on the latest build number
    - Look for "Build Artifacts" section
-   - Find `dist/add2vals.exe` (Windows) or `dist/add2vals` (Linux/macOS)
-   - Click to download the executable
+   - Click on `add2vals` to download it to your local machine
 
-2. **Local Testing**
+2. Set up for local testing:
+   - Create a `dist` folder in your local project directory (if it doesn't exist)
+   - Place the downloaded `add2vals` executable in the `dist` folder
+
+3. Test the executable:
    ```bash
    # Navigate to dist directory
    cd dist
@@ -360,148 +373,3 @@ PyInstaller is used to create a standalone executable from the Python applicatio
    - Creates platform-specific executables
    - Works on Windows, Linux, and macOS
    - Native performance
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Jenkins Container Issues**
-   ```bash
-   # Stop all containers
-   docker-compose down
-   
-   # Remove volumes (optional, will delete Jenkins data)
-   docker-compose down -v
-   
-   # Start containers again
-   docker-compose up -d
-   
-   # Check container status
-   docker ps
-   
-   # View container logs
-   docker-compose logs -f jenkins
-   ```
-
-2. **Docker Permission Issues**
-   ```bash
-   # Install Docker in Jenkins container
-   docker-compose exec jenkins bash -c "apt-get update && apt-get install -y docker.io"
-   
-   # Start Docker service
-   docker-compose exec jenkins bash -c "service docker start"
-   
-   # Verify Docker installation
-   docker-compose exec jenkins docker --version
-   ```
-
-3. **Build Failures**
-   - Check Jenkins logs for specific error messages
-   - Verify all dependencies are installed
-   - Ensure GitHub repository is accessible
-   - Check Docker container permissions
-   - Verify network connectivity
-
-### Log Files
-
-Important log files and their locations:
-- Jenkins logs: `/var/jenkins_home/logs/`
-- Docker logs: `docker-compose logs`
-- Pipeline logs: Available in Jenkins UI under each build
-
-## Maintenance
-
-### Updating Dependencies
-
-1. Modify `requirements.txt` with new versions
-2. Commit changes:
-   ```bash
-   git add requirements.txt
-   git commit -m "Update dependencies"
-   git push
-   ```
-3. Jenkins will automatically rebuild with new dependencies
-
-### Adding New Features
-
-1. Create new feature branch:
-   ```bash
-   git checkout -b feature/new-feature
-   ```
-
-2. Make changes and add tests
-3. Run local tests:
-   ```bash
-   py.test sources/test_calc.py
-   ```
-
-4. Commit and push changes:
-   ```bash
-   git add .
-   git commit -m "Add new feature"
-   git push origin feature/new-feature
-   ```
-
-5. Create pull request on GitHub
-6. Jenkins will run pipeline on pull request
-
-## Security Considerations
-
-1. **Jenkins Security**
-   - Credentials are stored in Docker volumes
-   - Regular security updates
-   - Access control and user management
-
-2. **GitHub Integration**
-   - Secure webhooks
-   - Token-based authentication
-   - Repository access control
-
-3. **Docker Security**
-   - Containers run with limited permissions
-   - Regular image updates
-   - Network isolation
-
-4. **Application Security**
-   - Input validation
-   - Error handling
-   - Secure file operations
-
-## Future Improvements
-
-1. **Pipeline Enhancements**
-   - Add deployment stages
-   - Implement versioning
-   - Add code quality checks
-   - Set up email notifications
-
-2. **Environment Configuration**
-   - Configure different environments (dev/staging/prod)
-   - Environment-specific settings
-   - Deployment strategies
-
-3. **Monitoring and Logging**
-   - Add performance monitoring
-   - Enhanced logging
-   - Alert system
-
-4. **Testing Improvements**
-   - Add integration tests
-   - Performance testing
-   - Security testing
-
-## Contributing
-
-1. Fork the repository
-2. Create feature branch:
-   ```bash
-   git checkout -b feature/your-feature
-   ```
-3. Make changes and add tests
-4. Run tests locally
-5. Commit changes:
-   ```bash
-   git commit -m "Add your feature"
-   ```
-6. Push to your fork:
-   ```

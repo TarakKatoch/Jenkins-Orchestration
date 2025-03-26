@@ -1,91 +1,29 @@
 # Python Application with Jenkins CI/CD Pipeline
 
+## 1. Project Overview
+
 This project demonstrates a simple Python application with a complete CI/CD pipeline using Jenkins, Docker, and GitHub. The application provides a command-line tool that adds two numbers together, with automated testing and continuous integration/deployment.
 
-## Project Overview
+## 2. System Requirements
 
-The project consists of a simple Python application that adds two numbers together, with automated testing and continuous integration/deployment using Jenkins. The application is packaged into a standalone executable using PyInstaller.
-
-### Components
-
-1. **Python Application**
-   - `add2vals.py`: Main application file that handles command-line arguments and displays results
-   - `calc.py`: Core calculation module containing the addition logic
-   - `test_calc.py`: Test suite with unit tests for the calculation module
-   - `requirements.txt`: Python dependencies with specific versions
-
-2. **Jenkins Pipeline**
-   - `Jenkinsfile`: Pipeline configuration defining the CI/CD workflow
-   - `docker-compose.yml`: Jenkins and agent setup with volume mappings and network configuration
-
-3. **Docker Configuration**
-   - Jenkins container: Main Jenkins server with persistent storage
-   - Jenkins agent container: For distributed builds
-   - Python build container: For building and testing the application
-
-## Prerequisites
-
-### System Requirements
 - Docker (version 20.10.0 or higher)
 - Docker Compose (version 2.0.0 or higher)
 - Git (version 2.39.0 or higher)
 - At least 4GB RAM
 - 20GB free disk space
-
-### Software Dependencies
 - Python 3.11 or higher
 - pip (Python package installer)
 - GitHub account with repository access
-- Jenkins (will be installed via Docker)
 
-## Required Jenkins Plugins
+## 3. Components
 
-The following plugins are required for this project:
-
-1. **Pipeline Plugins**
-   - Pipeline
-   - Pipeline: Stage Step
-   - Pipeline: Basic Steps
-   - Pipeline: SCM Step
-   - Pipeline: Shared Groovy Libraries
-
-2. **Git Integration**
-   - Git
-   - Git Client
-   - GitHub Integration
-
-3. **Docker Integration**
-   - Docker Pipeline
-   - Docker plugin
-   - Docker API Plugin
-   - docker-build-step
-
-4. **Testing and Reporting**
-   - JUnit Plugin
-   - Test Results Analyzer
-
-5. **UI and Usability**
-   - Blue Ocean
-   - Pipeline Stage View
-   - Build Timeout
-
-### Installing Plugins
-
-1. Go to Jenkins Dashboard
-2. Navigate to "Manage Jenkins" > "Manage Plugins"
-3. Go to "Available" tab
-4. Search for and install each plugin listed above
-5. Restart Jenkins after installation
-
-## Project Structure
-
+### Project Structure
 ```
 .
 ├── sources/
 │   ├── add2vals.py      # Main application entry point
 │   ├── calc.py          # Core calculation module
 │   └── test_calc.py     # Unit tests
-├── test-reports/        # Generated test reports
 ├── dist/               # Compiled executables
 ├── requirements.txt    # Python dependencies
 ├── Jenkinsfile        # Pipeline configuration
@@ -93,10 +31,24 @@ The following plugins are required for this project:
 └── README.md         # This documentation
 ```
 
-## Setup Instructions
+### Python Application
+- `add2vals.py`: Main application file that handles command-line arguments and displays results
+- `calc.py`: Core calculation module containing the addition logic
+- `test_calc.py`: Test suite with unit tests for the calculation module
+- `requirements.txt`: Python dependencies with specific versions
 
-### 1. Clone the Repository
+### Jenkins Pipeline
+- `Jenkinsfile`: Pipeline configuration defining the CI/CD workflow
+- `docker-compose.yml`: Jenkins and agent setup with volume mappings and network configuration
 
+### Docker Configuration
+- Jenkins container: Main Jenkins server with persistent storage
+- Jenkins agent container: For distributed builds
+- Python build container: For building and testing the application
+
+## 4. Steps to Perform This Project
+
+### Step 1: Clone the Repository
 ```bash
 # Clone the repository
 git clone https://github.com/TarakKatoch/Jenkins-Orchestration.git
@@ -108,8 +60,7 @@ cd Jenkins-Orchestration
 ls -la
 ```
 
-### 2. Start Jenkins
-
+### Step 2: Start Jenkins
 ```bash
 # Start Jenkins and required containers
 docker compose up -d
@@ -121,8 +72,7 @@ docker ps
 docker compose logs -f
 ```
 
-### 3. Access Jenkins
-
+### Step 3: Access Jenkins
 1. Open your browser and navigate to `http://localhost:8080`
 2. Get the initial admin password:
    ```bash
@@ -132,28 +82,40 @@ docker compose logs -f
    - Username: `admin`
    - Password: (from step 2)
 
-### 4. Configure Jenkins
+### Step 4: Configure Jenkins
 
-1. **Initial Setup**
-   - Choose "Install suggested plugins"
-   - Wait for installation to complete
-   - Create admin user with secure password
+#### Initial Setup
+1. Choose "Install suggested plugins"
+2. Wait for installation to complete
+3. Create admin user with secure password
 
-2. **Configure GitHub Integration**
-   - Go to "Manage Jenkins" > "Configure System"
-   - Add GitHub server configuration
-   - Test connection to GitHub
+#### Configure GitHub Integration
+1. Go to "Manage Jenkins" > "Configure System"
+2. Add GitHub server configuration
+3. Test connection to GitHub
 
-3. **Create Pipeline Project**
-   - Click "New Item"
-   - Enter project name: `simple-python-pyinstaller-app`
-   - Select "Pipeline"
-   - Configure Git repository:
-     - Repository URL: `https://github.com/TarakKatoch/Jenkins-Orchestration.git`
-     - Branch specifier: `*/master`
-   - Save configuration
+#### Create Pipeline Project
+1. Click "New Item"
+2. Enter project name: `simple-python-pyinstaller-app`
+3. Select "Pipeline"
+4. Configure Git repository:
+   - Repository URL: `https://github.com/TarakKatoch/Jenkins-Orchestration.git`
+   - Branch specifier: `*/master`
+5. Save configuration
 
-## Pipeline Stages
+### Step 5: Install Docker in Jenkins Container
+```bash
+# Install Docker in Jenkins container
+docker compose exec jenkins bash -c "apt-get update && apt-get install -y docker.io"
+
+# Start Docker service
+docker compose exec jenkins bash -c "service docker start"
+
+# Verify Docker installation
+docker compose exec jenkins docker --version
+```
+
+## 5. Pipeline Stages
 
 The Jenkins pipeline consists of four stages:
 
@@ -212,43 +174,93 @@ The Jenkins pipeline consists of four stages:
    }
    ```
 
-## PyInstaller Configuration
+## 6. Build Pipeline
 
-PyInstaller is used to create a standalone executable from the Python application. This section explains how PyInstaller is configured and used in the project.
+The build pipeline is triggered automatically when changes are pushed to the GitHub repository. Here's how it works:
 
-### Usage in Pipeline
+### Pipeline Trigger
+1. **GitHub Webhook**
+   - When code is pushed to GitHub
+   - Webhook notifies Jenkins
+   - Pipeline starts automatically
 
-The Jenkins pipeline uses PyInstaller in the Deliver stage:
-```groovy
-stage('Deliver') {
-    steps {
-        // Create standalone executable
-        sh 'pyinstaller --onefile sources/add2vals.py'
-    }
-}
-```
+2. **Manual Trigger**
+   - Go to Jenkins dashboard
+   - Select your pipeline project
+   - Click "Build Now"
 
-The `--onefile` flag creates a single executable that contains all dependencies.
+### Pipeline Execution Flow
 
-### How It Works
+1. **Checkout Stage**
+   ```groovy
+   checkout scm
+   ```
+   - Clones the repository
+   - Checks out the specified branch
+   - Prepares workspace
 
-1. **Analysis Phase**
-   - PyInstaller analyzes `add2vals.py` and its dependencies
-   - Identifies required Python files, libraries, and resources
-   - Creates a dependency graph of the application
+2. **Setup Stage**
+   - Updates package list
+   - Installs system dependencies
+   - Sets up Python environment
+   - Installs project dependencies
 
-2. **Bundling Phase**
-   - Packages all identified dependencies
-   - Includes Python interpreter
-   - Bundles required libraries and resources
-   - Creates a single executable file
+3. **Build Stage**
+   - Compiles Python files
+   - Creates build artifacts
+   - Stashes files for later stages
 
-3. **Output**
-   - Executable is created in the `dist` directory
-   - Named `add2vals` (or `add2vals.exe` on Windows)
-   - Contains everything needed to run the application
+4. **Test Stage**
+   - Runs unit tests
+   - Generates test reports
+   - Archives test results
 
-### Testing the Executable
+5. **Deliver Stage**
+   - Creates executable
+   - Archives build artifacts
+   - Makes files available for download
+
+### Pipeline Status
+
+1. **Success Indicators**
+   - All stages complete successfully
+   - Tests pass
+   - Executable is generated
+   - Artifacts are archived
+
+2. **Failure Indicators**
+   - Stage fails
+   - Tests fail
+   - Build errors
+   - Missing dependencies
+
+### Pipeline Logs
+
+1. **Accessing Logs**
+   - Click on build number
+   - Select "Console Output"
+   - View detailed execution logs
+
+2. **Troubleshooting Logs**
+   - Check for error messages
+   - Verify command execution
+   - Review test results
+   - Check dependency installation
+
+### Pipeline Artifacts
+
+1. **Generated Files**
+   - Executable in `dist/` directory
+   - Test reports in `test-reports/`
+   - Build logs
+   - Test results
+
+2. **Accessing Artifacts**
+   - Go to build page
+   - Click "Artifacts"
+   - Download required files
+
+## 7. How to Test After Build
 
 After a successful pipeline run, the executable will be available in the `dist` directory:
 
@@ -277,8 +289,50 @@ Note: The executable name and extension will depend on your operating system:
 - Windows: `add2vals.exe`
 - Linux/macOS: `add2vals`
 
-### Benefits
+## 8. How It Works
 
+1. **Source Code Management**
+   - Code is stored in GitHub repository
+   - Jenkins pulls code on each build
+   - Changes trigger automatic builds
+
+2. **Build Process**
+   - Jenkins creates isolated build environment
+   - Installs required dependencies
+   - Compiles Python code
+   - Runs automated tests
+
+3. **Testing**
+   - Unit tests verify functionality
+   - Test results are archived
+   - Build fails if tests fail
+
+4. **Delivery**
+   - Creates standalone executable
+   - Archives build artifacts
+   - Makes executable available for download
+
+## 9. What Does PyInstaller Do?
+
+PyInstaller is used to create a standalone executable from the Python application. Here's how it works:
+
+1. **Analysis Phase**
+   - Analyzes `add2vals.py` and its dependencies
+   - Identifies required Python files, libraries, and resources
+   - Creates a dependency graph of the application
+
+2. **Bundling Phase**
+   - Packages all identified dependencies
+   - Includes Python interpreter
+   - Bundles required libraries and resources
+   - Creates a single executable file
+
+3. **Output**
+   - Executable is created in the `dist` directory
+   - Named `add2vals` (or `add2vals.exe` on Windows)
+   - Contains everything needed to run the application
+
+### Benefits of PyInstaller
 1. **Portability**
    - Single executable file
    - No Python installation required
@@ -293,86 +347,6 @@ Note: The executable name and extension will depend on your operating system:
    - Creates platform-specific executables
    - Works on Windows, Linux, and macOS
    - Native performance
-
-### Troubleshooting PyInstaller
-
-If you encounter issues with PyInstaller:
-
-1. **Missing Dependencies**
-   ```bash
-   # Check if all dependencies are in requirements.txt
-   pip freeze > requirements.txt
-   ```
-
-2. **Import Errors**
-   - Verify all imports are explicit
-   - Check for dynamic imports
-   - Ensure all modules are included
-
-3. **File Not Found**
-   - Check file paths are relative
-   - Verify resource files are included
-   - Use `--add-data` flag if needed
-
-4. **Performance Issues**
-   - Consider using `--onedir` instead of `--onefile`
-   - Profile the application
-   - Check for unnecessary imports
-
-### Customizing PyInstaller
-
-You can customize PyInstaller behavior using spec files or command-line options:
-
-```bash
-# Create spec file
-pyi-makespec --onefile sources/add2vals.py
-
-# Build using spec file
-pyinstaller add2vals.spec
-
-# Additional options
-pyinstaller --onefile --windowed --icon=app.ico sources/add2vals.py
-```
-
-Common options:
-- `--onefile`: Create single executable
-- `--windowed`: Hide console window (Windows)
-- `--icon`: Set application icon
-- `--name`: Specify output name
-- `--add-data`: Include additional files
-
-## Testing the Application
-
-### Running Tests Locally
-
-```bash
-# Install dependencies
-pip install -r requirements.txt
-
-# Run tests
-py.test sources/test_calc.py -v
-
-# Run tests with coverage report
-py.test --cov=sources sources/test_calc.py
-```
-
-### Testing the Executable
-
-After a successful pipeline run, the executable will be available in the `dist` directory:
-
-```bash
-# Navigate to dist directory
-cd dist
-
-# Test with integer inputs
-./add2vals 5 3  # Should output: 8.0
-
-# Test with decimal inputs
-./add2vals 10.5 7.3  # Should output: 17.8
-
-# Test with negative numbers
-./add2vals -5 3  # Should output: -2.0
-```
 
 ## Troubleshooting
 

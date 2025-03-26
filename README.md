@@ -63,20 +63,20 @@ ls -la
 ### Step 2: Start Jenkins
 ```bash
 # Start Jenkins and required containers
-docker compose up -d
+docker-compose up -d
 
 # Verify containers are running
 docker ps
 
 # Check container logs
-docker compose logs -f
+docker-compose logs -f
 ```
 
 ### Step 3: Access Jenkins
 1. Open your browser and navigate to `http://localhost:8080`
 2. Get the initial admin password:
    ```bash
-   docker compose exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+   docker-compose exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
    ```
 3. Log in with:
    - Username: `admin`
@@ -99,14 +99,12 @@ docker compose logs -f
    - docker-build-step
 4. Restart Jenkins after installation:
    ```bash
-   # Stop Jenkins container
-   docker compose stop jenkins
+   # Restart Jenkins container
+   docker-compose restart jenkins
    
-   # Start Jenkins container
-   docker compose start jenkins
-   
-   # Verify Jenkins is running
-   docker compose ps
+   # Wait for Jenkins to start (about 30 seconds)
+   # Then verify Jenkins is running
+   docker-compose ps
    ```
 
 #### Create Pipeline Project
@@ -121,13 +119,13 @@ docker compose logs -f
 ### Step 5: Install Docker in Jenkins Container
 ```bash
 # Install Docker in Jenkins container
-docker compose exec jenkins bash -c "apt-get update && apt-get install -y docker.io"
+docker-compose exec jenkins bash -c "apt-get update && apt-get install -y docker.io"
 
 # Start Docker service
-docker compose exec jenkins bash -c "service docker start"
+docker-compose exec jenkins bash -c "service docker start"
 
 # Verify Docker installation
-docker compose exec jenkins docker --version
+docker-compose exec jenkins docker --version
 ```
 
 ## 5. Pipeline Stages
@@ -370,31 +368,31 @@ PyInstaller is used to create a standalone executable from the Python applicatio
 1. **Jenkins Container Issues**
    ```bash
    # Stop all containers
-   docker compose down
+   docker-compose down
    
    # Remove volumes (optional, will delete Jenkins data)
-   docker compose down -v
+   docker-compose down -v
    
    # Start containers again
-   docker compose up -d
+   docker-compose up -d
    
    # Check container status
    docker ps
    
    # View container logs
-   docker compose logs -f jenkins
+   docker-compose logs -f jenkins
    ```
 
 2. **Docker Permission Issues**
    ```bash
    # Install Docker in Jenkins container
-   docker compose exec jenkins bash -c "apt-get update && apt-get install -y docker.io"
+   docker-compose exec jenkins bash -c "apt-get update && apt-get install -y docker.io"
    
    # Start Docker service
-   docker compose exec jenkins bash -c "service docker start"
+   docker-compose exec jenkins bash -c "service docker start"
    
    # Verify Docker installation
-   docker compose exec jenkins docker --version
+   docker-compose exec jenkins docker --version
    ```
 
 3. **Build Failures**
@@ -408,7 +406,7 @@ PyInstaller is used to create a standalone executable from the Python applicatio
 
 Important log files and their locations:
 - Jenkins logs: `/var/jenkins_home/logs/`
-- Docker logs: `docker compose logs`
+- Docker logs: `docker-compose logs`
 - Pipeline logs: Available in Jenkins UI under each build
 
 ## Maintenance

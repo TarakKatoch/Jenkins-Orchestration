@@ -89,10 +89,25 @@ docker compose logs -f
 2. Wait for installation to complete
 3. Create admin user with secure password
 
-#### Configure GitHub Integration
-1. Go to "Manage Jenkins" > "Configure System"
-2. Add GitHub server configuration
-3. Test connection to GitHub
+#### Install Docker Plugins
+1. Go to "Manage Jenkins" > "Manage Plugins"
+2. Click on "Available" tab
+3. Search for and install the following Docker plugins:
+   - Docker Pipeline
+   - Docker plugin
+   - Docker API Plugin
+   - docker-build-step
+4. Restart Jenkins after installation:
+   ```bash
+   # Stop Jenkins container
+   docker compose stop jenkins
+   
+   # Start Jenkins container
+   docker compose start jenkins
+   
+   # Verify Jenkins is running
+   docker compose ps
+   ```
 
 #### Create Pipeline Project
 1. Click "New Item"

@@ -167,8 +167,6 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
       ```
 
 <div align="center">
-  <img src="/images/Screenshot%202025-03-26%20235429.png" alt="Restart Jenkins 1">
-
   <img src="/images/Screenshot%202025-03-26%20235511.png" alt="Restart Jenkins 2">
 </div>
     

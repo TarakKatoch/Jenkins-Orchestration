@@ -205,7 +205,8 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
    Note: The executable downloaded from Jenkins will be a Linux version since Jenkins runs in a Linux container. 
 
 2. To run the Linux executable on Windows using WSL:
-   ```bash
+
+```bash
    # Check if WSL is installed
    wsl --version
    
@@ -234,7 +235,7 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
    
    # Run the executable
    ./add2vals 5 3
-   ```
+```
 
 <div align="center">
   <img src="/images/Screenshot%202025-03-27%20034048.png" alt="Run executable 2">

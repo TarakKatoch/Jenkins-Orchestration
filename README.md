@@ -237,7 +237,7 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
    ```
 
 <div align="center">
-  <img src="/images/Screenshot%202025-03-27%20034137.png" alt="Run executable 1" width="100" height="150">
+  <img src="/images/Screenshot%202025-03-27%20034137.png" alt="Run executable 1" width="150" height="150">
   
   <img src="/images/Screenshot%202025-03-27%20034048.png" alt="Run executable 2">
 </div>

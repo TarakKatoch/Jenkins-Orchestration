@@ -161,6 +161,7 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
 </div>
 
    - Restart Jenkins after installation:
+   
     ```bash
       # Restart Jenkins container
       docker-compose restart jenkins

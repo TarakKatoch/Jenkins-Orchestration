@@ -40,30 +40,41 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
 ## 3. Steps to Perform This Project
 
 ### Step 1: Setup Jenkins
+
 1. Pull Jenkins image and start containers:
    ```bash
    docker-compose up -d
    ```
-![image](/images/pull%20and%20start%20Jenkins.png)
+
+<div align="center">
+  <img src="/images/pull%20and%20start%20Jenkins.png" alt="Pull and start Jenkins">
+</div>
 
 2. Get initial admin password:
    ```bash
    docker-compose exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
    ```
-![image](/images/Screenshot%202025-03-26%20232332.png)
+
+<div align="center">
+  <img src="/images/Screenshot%202025-03-26%20232332.png" alt="Get initial admin password">
+</div>
 
 3. Access Jenkins:
    - Open browser and go to `http://localhost:8080`
    - Enter the initial admin password from step 2
 
-![image](/images/1.png)
+<div align="center">
+  <img src="/images/1.png" alt="Access Jenkins">
+</div>
 
 4. Install plugins:
    - Click "Install suggested plugins"
    - Wait for installation to complete
 
-![image](/images/Screenshot%202025-03-26%20232407.png)
-![image](/images/Screenshot%202025-03-26%20233541.png)
+<div align="center">
+  <img src="/images/Screenshot%202025-03-26%20232407.png" alt="Install plugins 1">
+  <img src="/images/Screenshot%202025-03-26%20233541.png" alt="Install plugins 2">
+</div>
 
 5. Create first admin user:
    - Enter your desired username
@@ -71,14 +82,18 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
    - Enter your email
    - Click "Save and Continue"
 
-![image](/images/Screenshot%202025-03-26%20233721.png)
+<div align="center">
+  <img src="/images/Screenshot%202025-03-26%20233721.png" alt="Create admin user">
+</div>
 
 6. Configure Jenkins instance:
    - Keep the default URL: `http://localhost:8080/`
    - Click "Save and Finish"
 
-   ![image](/images/Screenshot%202025-03-26%20233737.png)
-   ![image](/images/Screenshot%202025-03-26%20233835.png)
+<div align="center">
+  <img src="/images/Screenshot%202025-03-26%20233737.png" alt="Configure Jenkins 1">
+  <img src="/images/Screenshot%202025-03-26%20233835.png" alt="Configure Jenkins 2">
+</div>
 
 7. Create Pipeline Project:
    - Click "New Item"
@@ -93,8 +108,10 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
      - Enter branch specifier: `*/master`
      - Click "Save"
 
-     ![image](/images/Screenshot%202025-03-26%20233941.png)
-     ![image](/images/Screenshot%202025-03-26%20234143.png)
+<div align="center">
+  <img src="/images/Screenshot%202025-03-26%20233941.png" alt="Create pipeline 1">
+  <img src="/images/Screenshot%202025-03-26%20234143.png" alt="Create pipeline 2">
+</div>
 
 8. Install and Configure Docker in Jenkins Container:
    ```bash
@@ -107,10 +124,13 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
    # Verify Docker installation
    docker-compose exec jenkins docker --version
    ```
-   ![image](/images/Screenshot%202025-03-26%20234447.png)
-   ![image](/images/Screenshot%202025-03-26%20234513.png)
-   ![image](/images/Screenshot%202025-03-26%20234615.png)
-   ![image](/images/Screenshot%202025-03-26%20234702.png)
+
+<div align="center">
+  <img src="/images/Screenshot%202025-03-26%20234447.png" alt="Install Docker 1">
+  <img src="/images/Screenshot%202025-03-26%20234513.png" alt="Install Docker 2">
+  <img src="/images/Screenshot%202025-03-26%20234615.png" alt="Install Docker 3">
+  <img src="/images/Screenshot%202025-03-26%20234702.png" alt="Install Docker 4">
+</div>
 
 9. Install Docker Plugins:
     - Go to "Manage Jenkins" > "Manage Plugins"
@@ -119,11 +139,13 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
       - Docker Pipeline
       - Docker plugin
       - docker-build-step
-   
-   ![image](/images/Screenshot%202025-03-26%20234846.png)
-   ![image](/images/Screenshot%202025-03-26%20234940.png)
-   ![image](/images/Screenshot%202025-03-26%20235030.png)
-   ![image](/images/Screenshot%202025-03-26%20235156.png)
+
+<div align="center">
+  <img src="/images/Screenshot%202025-03-26%20234846.png" alt="Install Docker plugins 1">
+  <img src="/images/Screenshot%202025-03-26%20234940.png" alt="Install Docker plugins 2">
+  <img src="/images/Screenshot%202025-03-26%20235030.png" alt="Install Docker plugins 3">
+  <img src="/images/Screenshot%202025-03-26%20235156.png" alt="Install Docker plugins 4">
+</div>
 
     - Restart Jenkins after installation:
       ```bash
@@ -134,13 +156,18 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
       # Then verify Jenkins is running
       docker-compose ps
       ```
-   ![image](/images/Screenshot%202025-03-26%20235429.png)
-   ![image](/images/Screenshot%202025-03-26%20235511.png)
+
+<div align="center">
+  <img src="/images/Screenshot%202025-03-26%20235429.png" alt="Restart Jenkins 1">
+  <img src="/images/Screenshot%202025-03-26%20235511.png" alt="Restart Jenkins 2">
+</div>
     
 10. Sign in to Jenkins:
     - Use the credentials you created in step 5
 
- ![image](/images/Screenshot%202025-03-26%20235719.png)
+<div align="center">
+  <img src="/images/Screenshot%202025-03-26%20235719.png" alt="Sign in to Jenkins">
+</div>
 
 11. Run the Pipeline:
     - Go to your pipeline project
@@ -155,11 +182,12 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
    - Look for "Build Artifacts" section
    - Click on `add2vals` to download it to your local machine
 
-   ![image](/images/Screenshot%202025-03-27%20000143.png)
-   ![image](/images/Screenshot%202025-03-27%20000235.png)
-   ![image](/images/Screenshot%202025-03-27%20000321.png) 
-   ![image](/images/Screenshot%202025-03-27%20000550.png) 
-   
+<div align="center">
+  <img src="/images/Screenshot%202025-03-27%20000143.png" alt="Download executable 1">
+  <img src="/images/Screenshot%202025-03-27%20000235.png" alt="Download executable 2">
+  <img src="/images/Screenshot%202025-03-27%20000321.png" alt="Download executable 3">
+  <img src="/images/Screenshot%202025-03-27%20000550.png" alt="Download executable 4">
+</div>
 
    Note: The executable downloaded from Jenkins will be a Linux version since Jenkins runs in a Linux container. 
 
@@ -195,8 +223,10 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
    ./add2vals 5 3
    ```
 
-   ![image](/images/Screenshot%202025-03-27%20034137.png)
-   ![image](/images/Screenshot%202025-03-27%20034048.png)
+<div align="center">
+  <img src="/images/Screenshot%202025-03-27%20034137.png" alt="Run executable 1">
+  <img src="/images/Screenshot%202025-03-27%20034048.png" alt="Run executable 2">
+</div>
 
 ## 4. What Does PyInstaller Do?
 

@@ -1,7 +1,7 @@
 # Python Application with Jenkins CI/CD Pipeline
 
 <div align="center">
-  <img src="/images/Jenkins.png" alt="Jenkins Logo">
+  <img src="/images/Jenkins.png" alt="Jenkins Logo" width="200" height="200">
 </div>
 
 ## 1. Project Overview

@@ -73,6 +73,7 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
 
 <div align="center">
   <img src="/images/Screenshot%202025-03-26%20232407.png" alt="Install plugins 1">
+
   <img src="/images/Screenshot%202025-03-26%20233541.png" alt="Install plugins 2">
 </div>
 
@@ -92,6 +93,7 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
 
 <div align="center">
   <img src="/images/Screenshot%202025-03-26%20233737.png" alt="Configure Jenkins 1">
+
   <img src="/images/Screenshot%202025-03-26%20233835.png" alt="Configure Jenkins 2">
 </div>
 
@@ -110,6 +112,7 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
 
 <div align="center">
   <img src="/images/Screenshot%202025-03-26%20233941.png" alt="Create pipeline 1">
+
   <img src="/images/Screenshot%202025-03-26%20234143.png" alt="Create pipeline 2">
 </div>
 
@@ -127,8 +130,11 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
 
 <div align="center">
   <img src="/images/Screenshot%202025-03-26%20234447.png" alt="Install Docker 1">
+
   <img src="/images/Screenshot%202025-03-26%20234513.png" alt="Install Docker 2">
+
   <img src="/images/Screenshot%202025-03-26%20234615.png" alt="Install Docker 3">
+
   <img src="/images/Screenshot%202025-03-26%20234702.png" alt="Install Docker 4">
 </div>
 
@@ -142,8 +148,11 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
 
 <div align="center">
   <img src="/images/Screenshot%202025-03-26%20234846.png" alt="Install Docker plugins 1">
+
   <img src="/images/Screenshot%202025-03-26%20234940.png" alt="Install Docker plugins 2">
+
   <img src="/images/Screenshot%202025-03-26%20235030.png" alt="Install Docker plugins 3">
+
   <img src="/images/Screenshot%202025-03-26%20235156.png" alt="Install Docker plugins 4">
 </div>
 
@@ -159,6 +168,7 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
 
 <div align="center">
   <img src="/images/Screenshot%202025-03-26%20235429.png" alt="Restart Jenkins 1">
+
   <img src="/images/Screenshot%202025-03-26%20235511.png" alt="Restart Jenkins 2">
 </div>
     
@@ -184,8 +194,11 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
 
 <div align="center">
   <img src="/images/Screenshot%202025-03-27%20000143.png" alt="Download executable 1">
+
   <img src="/images/Screenshot%202025-03-27%20000235.png" alt="Download executable 2">
+
   <img src="/images/Screenshot%202025-03-27%20000321.png" alt="Download executable 3">
+
   <img src="/images/Screenshot%202025-03-27%20000550.png" alt="Download executable 4">
 </div>
 
@@ -224,7 +237,8 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
    ```
 
 <div align="center">
-  <img src="/images/Screenshot%202025-03-27%20034137.png" alt="Run executable 1">
+  <img src="/images/Screenshot%202025-03-27%20034137.png" alt="Run executable 1" width="800" height="600">
+  
   <img src="/images/Screenshot%202025-03-27%20034048.png" alt="Run executable 2">
 </div>
 

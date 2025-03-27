@@ -121,7 +121,7 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
 </div>
 
 8. Install and Configure Docker in Jenkins Container:
-   ```bash
+ ```bash
    # Install Docker
    docker-compose exec jenkins bash -c "apt-get update && apt-get install -y docker.io"
    
@@ -130,7 +130,7 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
    
    # Verify Docker installation
    docker-compose exec jenkins docker --version
-   ```
+ ```
 
 <div align="center">
   <img src="/images/Screenshot%202025-03-26%20234447.png" alt="Install Docker 1">
@@ -161,14 +161,14 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
 </div>
 
    - Restart Jenkins after installation:
-      ```bash
+    ```bash
       # Restart Jenkins container
       docker-compose restart jenkins
       
       # Wait for Jenkins to start (about 30 seconds)
       # Then verify Jenkins is running
       docker-compose ps
-      ```
+    ```
 
 <div align="center">
   <img src="/images/Screenshot%202025-03-26%20235511.png" alt="Restart Jenkins 2">

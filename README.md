@@ -185,6 +185,14 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
     - Go to your pipeline project
     - Click "Build Now"
 
+<div align="center">
+ <img src="/images/Screenshot%202025-03-27%20000143.png" alt="Download executable 1">
+
+  <img src="/images/Screenshot%202025-03-27%20000235.png" alt="Download executable 2">
+
+  <img src="/images/Screenshot%202025-03-27%20000321.png" alt="Download executable 3">
+</div>
+
 ### Step 2: Testing the Executable
 
 1. Download the executable from Jenkins:
@@ -195,12 +203,6 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
    - Click on `add2vals` to download it to your local machine
 
 <div align="center">
-  <img src="/images/Screenshot%202025-03-27%20000143.png" alt="Download executable 1">
-
-  <img src="/images/Screenshot%202025-03-27%20000235.png" alt="Download executable 2">
-
-  <img src="/images/Screenshot%202025-03-27%20000321.png" alt="Download executable 3">
-
   <img src="/images/Screenshot%202025-03-27%20000550.png" alt="Download executable 4">
 </div>
 

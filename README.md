@@ -4,18 +4,9 @@
 
 This project demonstrates a simple Python application with a complete CI/CD pipeline using Jenkins, Docker, and GitHub. The application provides a command-line tool that adds two numbers together, with automated testing and continuous integration/deployment.
 
-## 2. System Requirements
+> **Important**: Make sure Docker Desktop is running in the background before starting any Docker-related commands.
 
-- Docker (version 20.10.0 or higher)
-- Docker Compose (version 2.0.0 or higher)
-- Git (version 2.39.0 or higher)
-- At least 4GB RAM
-- 20GB free disk space
-- Python 3.11 or higher
-- pip (Python package installer)
-- GitHub account with repository access
-
-## 3. Components
+## 2. Components
 
 ### Project Structure
 ```
@@ -46,26 +37,33 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
 - Jenkins agent container: For distributed builds
 - Python build container: For building and testing the application
 
-## 4. Steps to Perform This Project
+## 3. Steps to Perform This Project
 
 ### Step 1: Setup Jenkins
 1. Pull Jenkins image and start containers:
    ```bash
    docker-compose up -d
    ```
+![image](/images/pull%20and%20start%20Jenkins.png)
 
 2. Get initial admin password:
    ```bash
    docker-compose exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
    ```
+![image](/images/Screenshot%202025-03-26%20232332.png)
 
 3. Access Jenkins:
    - Open browser and go to `http://localhost:8080`
    - Enter the initial admin password from step 2
 
+![image](/images/1.png)
+
 4. Install plugins:
    - Click "Install suggested plugins"
    - Wait for installation to complete
+
+![image](/images/Screenshot%202025-03-26%20232407.png)
+![image](/images/Screenshot%202025-03-26%20233541.png)
 
 5. Create first admin user:
    - Enter your desired username
@@ -73,9 +71,14 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
    - Enter your email
    - Click "Save and Continue"
 
+![image](/images/Screenshot%202025-03-26%20233721.png)
+
 6. Configure Jenkins instance:
    - Keep the default URL: `http://localhost:8080/`
    - Click "Save and Finish"
+
+   ![image](/images/Screenshot%202025-03-26%20233737.png)
+   ![image](/images/Screenshot%202025-03-26%20233835.png)
 
 7. Create Pipeline Project:
    - Click "New Item"
@@ -90,6 +93,9 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
      - Enter branch specifier: `*/master`
      - Click "Save"
 
+     ![image](/images/Screenshot%202025-03-26%20233941.png)
+     ![image](/images/Screenshot%202025-03-26%20234143.png)
+
 8. Install and Configure Docker in Jenkins Container:
    ```bash
    # Install Docker
@@ -101,6 +107,10 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
    # Verify Docker installation
    docker-compose exec jenkins docker --version
    ```
+   ![image](/images/Screenshot%202025-03-26%20234447.png)
+   ![image](/images/Screenshot%202025-03-26%20234513.png)
+   ![image](/images/Screenshot%202025-03-26%20234615.png)
+   ![image](/images/Screenshot%202025-03-26%20234702.png)
 
 9. Install Docker Plugins:
     - Go to "Manage Jenkins" > "Manage Plugins"
@@ -109,6 +119,12 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
       - Docker Pipeline
       - Docker plugin
       - docker-build-step
+   
+   ![image](/images/Screenshot%202025-03-26%20234846.png)
+   ![image](/images/Screenshot%202025-03-26%20234940.png)
+   ![image](/images/Screenshot%202025-03-26%20235030.png)
+   ![image](/images/Screenshot%202025-03-26%20235156.png)
+
     - Restart Jenkins after installation:
       ```bash
       # Restart Jenkins container
@@ -118,9 +134,13 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
       # Then verify Jenkins is running
       docker-compose ps
       ```
-
+   ![image](/images/Screenshot%202025-03-26%20235429.png)
+   ![image](/images/Screenshot%202025-03-26%20235511.png)
+    
 10. Sign in to Jenkins:
     - Use the credentials you created in step 5
+
+ ![image](/images/Screenshot%202025-03-26%20235719.png)
 
 11. Run the Pipeline:
     - Go to your pipeline project
@@ -134,6 +154,12 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
    - Click on the latest build number
    - Look for "Build Artifacts" section
    - Click on `add2vals` to download it to your local machine
+
+   ![image](/images/Screenshot%202025-03-27%20000143.png)
+   ![image](/images/Screenshot%202025-03-27%20000235.png)
+   ![image](/images/Screenshot%202025-03-27%20000321.png) 
+   ![image](/images/Screenshot%202025-03-27%20000550.png) 
+   
 
    Note: The executable downloaded from Jenkins will be a Linux version since Jenkins runs in a Linux container. 
 
@@ -168,7 +194,11 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
    # Run the executable
    ./add2vals 5 3
    ```
-## 6. What Does PyInstaller Do?
+
+   ![image](/images/Screenshot%202025-03-27%20034137.png)
+   ![image](/images/Screenshot%202025-03-27%20034048.png)
+
+## 4. What Does PyInstaller Do?
 
 PyInstaller is used to create a standalone executable from the Python application. Here's how it works:
 
@@ -204,7 +234,7 @@ PyInstaller is used to create a standalone executable from the Python applicatio
    - Works on Windows, Linux, and macOS
    - Native performance
 
-## 7. Conclusion
+## 5. Conclusion
 
 This project demonstrates a complete CI/CD pipeline setup using Jenkins, Docker, and Python. By following these steps, you have:
 

@@ -225,9 +225,9 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
    
    # Option 3: Click Start menu, type 'wsl' and click on 'Windows Subsystem for Linux'
    
-   # Navigate to your project directory in WSL
+   # Navigate to your directory where you downloaded `add2vals` in WSL
    # Note: In WSL, Windows paths are accessed through /mnt/
-   cd /mnt/c/Users/asus/OneDrive/Desktop/Jenkins/dist
+   cd /mnt/c/Users/asus/OneDrive/Downloads
    
    # Make the file executable
    chmod +x add2vals
@@ -237,8 +237,6 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
    ```
 
 <div align="center">
-  <img src="/images/Screenshot%202025-03-27%20034137.png" alt="Run executable 1" width="150" height="150">
-  
   <img src="/images/Screenshot%202025-03-27%20034048.png" alt="Run executable 2">
 </div>
 

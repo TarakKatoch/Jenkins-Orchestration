@@ -147,8 +147,7 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
   <img src="/images/Screenshot%202025-03-26%20235156.png" alt="Install Docker plugins 4">
 </div>
 
-    - Restart Jenkins after installation:
-   
+   - Restart Jenkins after installation:
       ```bash
       # Restart Jenkins container
       docker-compose restart jenkins

@@ -46,18 +46,18 @@ This project demonstrates a simple Python application with a complete CI/CD pipe
 ### Step 1: Setup Jenkins
 
 1. Pull Jenkins image and start containers:
-   ```bash
+ ```bash
    docker-compose up -d
-   ```
+ ```
 
 <div align="center">
   <img src="/images/pull%20and%20start%20Jenkins.png" alt="Pull and start Jenkins">
 </div>
 
 2. Get initial admin password:
-   ```bash
+ ```bash
    docker-compose exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
-   ```
+ ```
 
 <div align="center">
   <img src="/images/Screenshot%202025-03-26%20232332.png" alt="Get initial admin password">
